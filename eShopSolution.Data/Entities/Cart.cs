@@ -1,7 +1,7 @@
 ﻿namespace eShopSolution.Data.Entities
 {
     using System;
-    
+
     public class Cart
     {
         public int Id { set; get; }
@@ -14,5 +14,7 @@
         public Product Product { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public AppUser AppUser { get; set; }
     }
 }
