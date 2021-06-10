@@ -72,11 +72,6 @@
             return await _context.SaveChangesAsync();
         }
 
-        public Task<List<ProductViewModel>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
         {
             var query = _context.Products
@@ -100,7 +95,7 @@
             var data = await query
                 .Skip((request.PageIndex - 1) * request.PageSize)
                 .Take(request.PageSize)
-                .Select(x=> new ProductViewModel()
+                .Select(x => new ProductViewModel()
                 {
                     Id = x.p.Id,
                     Name = x.pt.Name,
@@ -128,17 +123,50 @@
 
         public async Task<int> Update(ProductUpdateRequest request)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(request.Id);
+            var prodcutTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == request.Id && x.LanguageId == request.LanguageId);
+
+            if (product == null || prodcutTranslations == null)
+            {
+                throw new EShopException($"Cannot find a product with id: {request.Id}");
+            }
+
+            prodcutTranslations.Name = request.Name;
+            prodcutTranslations.SeoAlias = request.SeoAlias;
+            prodcutTranslations.SeoDescription = request.SeoDescription;
+            prodcutTranslations.SeoTitle = request.SeoTitle;
+            prodcutTranslations.Description = request.Description;
+            prodcutTranslations.Details = request.Details;
+
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<bool> UpdatePrice(int productId, decimal newPrice)
+        public async Task<bool> UpdatePrice(int productId, decimal newPrice)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(productId);
+
+            if (product == null)
+            {
+                throw new EShopException($"Cannot find a product with id: {productId}");
+            }
+
+            product.Price = newPrice;
+
+            return await _context.SaveChangesAsync() > 0;
         }
 
-        public Task<bool> UpdateStock(int productId, int addQuantity)
+        public async Task<bool> UpdateStock(int productId, int addQuantity)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(productId);
+
+            if (product == null)
+            {
+                throw new EShopException($"Cannot find a product with id: {productId}");
+            }
+
+            product.Stock += addQuantity;
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

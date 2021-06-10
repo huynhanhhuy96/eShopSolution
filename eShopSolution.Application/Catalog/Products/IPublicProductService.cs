@@ -1,11 +1,12 @@
 ﻿namespace eShopSolution.Application.Catalog.Products
 {
     using eShopSolution.Application.Catalog.Products.Dtos;
-    using eShopSolution.Application.Catalog.Products.Dtos.Manage;
+    using eShopSolution.Application.Catalog.Products.Dtos.Public;
     using eShopSolution.Application.Dtos;
+    using System.Threading.Tasks;
 
     public interface IPublicProductService
     {
-        public PageResult<ProductViewModel> GetAllCatelogyId(GetProductPagingRequest request);
+        Task<PageResult<ProductViewModel>> GetAllCatelogyId(GetProductPagingRequest request);
     }
 }

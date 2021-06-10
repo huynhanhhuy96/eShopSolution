@@ -20,8 +20,6 @@
 
         Task AddViewCount(int productId);
 
-        Task<List<ProductViewModel>> GetAll();
-
         Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
     }
 }
