@@ -2,9 +2,9 @@
 
 namespace eShopSolution.Application.Dtos
 {
-    public class PageViewModel<T>
+    public class PageResult<T>
     {
-        public int TotalProduct { get; set; }
+        public int TotalRecord { get; set; }
 
         public List<T> Items { get; set; }
     }
