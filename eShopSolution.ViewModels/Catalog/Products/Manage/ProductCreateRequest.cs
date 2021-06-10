@@ -1,4 +1,6 @@
-﻿namespace eShopSolution.Application.Catalog.Products.Dtos.Manage
+﻿using Microsoft.AspNetCore.Http;
+
+namespace eShopSolution.ViewModels.Catalog.Products.Manage
 {
     public class ProductCreateRequest
     {
@@ -12,5 +14,6 @@
         public string SeoTitle { set; get; }
         public string SeoAlias { get; set; }
         public string LanguageId { set; get; }
+        public IFormFile ThumbmailImage { get; set; }
     }
 }

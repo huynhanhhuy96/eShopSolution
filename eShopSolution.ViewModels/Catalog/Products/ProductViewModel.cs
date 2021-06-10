@@ -1,4 +1,4 @@
-﻿namespace eShopSolution.Application.Catalog.Products.Dtos
+﻿namespace eShopSolution.ViewModels.Catalog.Products
 {
     using System;
 

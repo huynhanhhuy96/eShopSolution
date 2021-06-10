@@ -1,24 +1,50 @@
 ﻿namespace eShopSolution.Application.Catalog.Products
 {
-    using eShopSolution.Application.Catalog.Products.Dtos;
-    using eShopSolution.Application.Catalog.Products.Dtos.Manage;
-    using eShopSolution.Application.Dtos;
+    using eShopSolution.Application.Common;
     using eShopSolution.Data.EF;
     using eShopSolution.Data.Entities;
     using eShopSolution.Utilities.Exceptions;
+    using eShopSolution.ViewModels.Catalog.Products;
+    using eShopSolution.ViewModels.Catalog.Products.Manage;
+    using eShopSolution.ViewModels.Common;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Net.Http.Headers;
     using System.Threading.Tasks;
 
     class ManageProductService : IManageProductService
     {
         private readonly EShopDbContext _context;
+        private readonly IStorageService _storageService;
 
-        public ManageProductService(EShopDbContext context)
+        public ManageProductService(EShopDbContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
+        }
+
+        public Task<int> AddImages(int productId, List<IFormFile> files)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> RemoveImages(int imageId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> UpdateImages(int imageId, string caption, bool isDefault)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ProductImageViewModel>> GetListImage(int productId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task AddViewCount(int productId)
@@ -53,6 +79,22 @@
                 }
             };
 
+            if (request.ThumbmailImage != null)
+            {
+                product.ProductImages = new List<ProductImage>()
+                {
+                    new ProductImage()
+                    {
+                        Caption = "Thumbnail image",
+                        DateCreated = DateTime.Now,
+                        FileSize = request.ThumbmailImage.Length,
+                        ImagePath = await this.SaveFile(request.ThumbmailImage),
+                        IsDefault = true,
+                        SortOrder = 1
+                    }
+                };
+            }
+
             _context.Products.Add(product);
 
             return await _context.SaveChangesAsync();
@@ -67,8 +109,14 @@
                 throw new EShopException($"Cannot find a product: {productId}");
             }
 
-            _context.Products.Remove(product);
+            var images = _context.ProductImages.Where(x => x.ProductId == product.Id);
+            foreach (var image in images)
+            {
+                await _storageService.DeleteFileAsync(image.ImagePath);
+            }
 
+            _context.Products.Remove(product);
+            
             return await _context.SaveChangesAsync();
         }
 
@@ -138,6 +186,17 @@
             prodcutTranslations.Description = request.Description;
             prodcutTranslations.Details = request.Details;
 
+            if (request.ThumbmailImage != null)
+            {
+                var thumbnailImage = await _context.ProductImages.FirstOrDefaultAsync(x => x.IsDefault == true && x.ProductId == request.Id);
+                if (thumbnailImage != null)
+                {
+                    thumbnailImage.FileSize = request.ThumbmailImage.Length;
+                    thumbnailImage.ImagePath = await this.SaveFile(request.ThumbmailImage);
+                    _context.ProductImages.Update(thumbnailImage);
+                }
+            }
+
             return await _context.SaveChangesAsync();
         }
 
@@ -167,6 +226,14 @@
             product.Stock += addQuantity;
 
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var orginalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(orginalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return fileName;
         }
     }
 }
