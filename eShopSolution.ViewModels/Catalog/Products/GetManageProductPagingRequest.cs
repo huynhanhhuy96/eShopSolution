@@ -1,9 +1,9 @@
-﻿namespace eShopSolution.ViewModels.Catalog.Products.Manage
+﻿namespace eShopSolution.ViewModels.Catalog.Products
 {
     using eShopSolution.ViewModels.Common;
     using System.Collections.Generic;
 
-    public class GetProductPagingRequest : PagingRequestBase
+    public class GetManageProductPagingRequest : PagingRequestBase
     {
         public string Keyword { get; set; }
 

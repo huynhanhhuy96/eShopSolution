@@ -5,7 +5,6 @@
     using eShopSolution.Data.Entities;
     using eShopSolution.Utilities.Exceptions;
     using eShopSolution.ViewModels.Catalog.Products;
-    using eShopSolution.ViewModels.Catalog.Products.Manage;
     using eShopSolution.ViewModels.Common;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
@@ -120,7 +119,7 @@
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetManageProductPagingRequest request)
         {
             var query = _context.Products
                 .Join(_context.ProductTranslations, p => p.Id, pt => pt.ProductId, (p, pt) => new { p, pt })
