@@ -17,13 +17,14 @@
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll()
+        public async Task<List<ProductViewModel>> GetAll(string languageId)
         {
             var query = _context.Products
                 .Join(_context.ProductTranslations, p => p.Id, pt => pt.ProductId, (p, pt) => new { p, pt })
                 .Join(_context.ProductInCategories, ppt => ppt.p.Id, pic => pic.ProductId, (ppt, pic) => new { ppt, pic })
                 .Join(_context.Categories, pptpic => pptpic.pic.CategoryId, c => c.Id, (pptpic, c) => new { pptpic, c })
-                .Select(x => new { x.pptpic.ppt.p, x.pptpic.ppt.pt, x.pptpic.pic });
+                .Select(x => new { x.pptpic.ppt.p, x.pptpic.ppt.pt, x.pptpic.pic })
+                .Where(x => x.pt.LanguageId == languageId);
 
 
             var data = await query
@@ -47,12 +48,13 @@
             return data;
         }
 
-        public async Task<PageResult<ProductViewModel>> GetAllCatelogyId(GetPublicProductPagingRequest request)
+        public async Task<PageResult<ProductViewModel>> GetAllByCatelogyId(GetPublicProductPagingRequest request)
         {
             var query = _context.Products
                 .Join(_context.ProductTranslations, p => p.Id, pt => pt.ProductId, (p, pt) => new { p, pt })
                 .Join(_context.ProductInCategories, ppt => ppt.p.Id, pic => pic.ProductId, (ppt, pic) => new { ppt, pic })
                 .Join(_context.Categories, pptpic => pptpic.pic.CategoryId, c => c.Id, (pptpic, c) => new { pptpic, c })
+                .Where(x => x.pptpic.ppt.pt.LanguageId == request.LanguageId)
                 .Select(x => new { x.pptpic.ppt.p, x.pptpic.ppt.pt, x.pptpic.pic });
 
             if (request.CategoryId.HasValue == true && request.CategoryId.Value > 0)
