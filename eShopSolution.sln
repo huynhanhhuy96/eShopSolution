@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ECD7043D-989C-416C-92C5-17BF7088CA90}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Solution Items", "{ECD7043D-989C-416C-92C5-17BF7088CA90}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
@@ -16,9 +16,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Utilities", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.ViewModels", "eShopSolution.ViewModels\eShopSolution.ViewModels.csproj", "{0B4ED504-92FF-46E4-990B-AFDB5C3A435C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.BackendApi", "eShopSolution.BackendApi\eShopSolution.BackendApi.csproj", "{5F76EF8F-033D-4F44-BD19-EE26D3278E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.BackendApi", "eShopSolution.BackendApi\eShopSolution.BackendApi.csproj", "{5F76EF8F-033D-4F44-BD19-EE26D3278E07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopSolution.WebApp", "eShopSolution.WebApp\eShopSolution.WebApp.csproj", "{5FF177E6-39FF-462B-BE06-E744375383F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.WebApp", "eShopSolution.WebApp\eShopSolution.WebApp.csproj", "{5FF177E6-39FF-462B-BE06-E744375383F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Infrastructure", "1. Infrastructure", "{A0B69476-E6D8-4C4D-B662-062559C61572}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{D8A820F8-F9A0-458D-AADA-272CD21C921E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Hosts", "3. Hosts", "{B0A3923C-0A2C-4FC4-94A2-14056A5341BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E2A77456-1106-463C-9C3E-6BD5DD8B29BD} = {D8A820F8-F9A0-458D-AADA-272CD21C921E}
+		{94FDCC36-0086-4C99-BD8C-8D72A5E3F777} = {D8A820F8-F9A0-458D-AADA-272CD21C921E}
+		{8A1E6FA4-6608-4D68-B097-86C219418918} = {A0B69476-E6D8-4C4D-B662-062559C61572}
+		{0B4ED504-92FF-46E4-990B-AFDB5C3A435C} = {A0B69476-E6D8-4C4D-B662-062559C61572}
+		{5F76EF8F-033D-4F44-BD19-EE26D3278E07} = {B0A3923C-0A2C-4FC4-94A2-14056A5341BD}
+		{5FF177E6-39FF-462B-BE06-E744375383F7} = {B0A3923C-0A2C-4FC4-94A2-14056A5341BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBD61834-1B14-43BD-96F1-9E47257D9ACB}
