@@ -7,8 +7,6 @@
 
     public interface IPublicProductService
     {
-        Task<PageResult<ProductViewModel>> GetAllByCatelogyId(GetPublicProductPagingRequest request);
-
-        Task<List<ProductViewModel>> GetAll(string languageId);
+        Task<PageResult<ProductViewModel>> GetAllByCatelogyId(string languageId, GetPublicProductPagingRequest request);
     }
 }

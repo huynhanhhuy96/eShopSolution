@@ -17,44 +17,13 @@
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll(string languageId)
+        public async Task<PageResult<ProductViewModel>> GetAllByCatelogyId(string languageId, GetPublicProductPagingRequest request)
         {
             var query = _context.Products
                 .Join(_context.ProductTranslations, p => p.Id, pt => pt.ProductId, (p, pt) => new { p, pt })
                 .Join(_context.ProductInCategories, ppt => ppt.p.Id, pic => pic.ProductId, (ppt, pic) => new { ppt, pic })
                 .Join(_context.Categories, pptpic => pptpic.pic.CategoryId, c => c.Id, (pptpic, c) => new { pptpic, c })
-                .Select(x => new { x.pptpic.ppt.p, x.pptpic.ppt.pt, x.pptpic.pic })
-                .Where(x => x.pt.LanguageId == languageId);
-
-
-            var data = await query
-                .Select(x => new ProductViewModel()
-                {
-                    Id = x.p.Id,
-                    Name = x.pt.Name,
-                    DateCreated = x.p.DateCreated,
-                    Description = x.pt.Description,
-                    Details = x.pt.Details,
-                    LanguageId = x.pt.LanguageId,
-                    OriginalPrice = x.p.OriginalPrice,
-                    Price = x.p.Price,
-                    SeoAlias = x.pt.SeoAlias,
-                    SeoDescription = x.pt.SeoDescription,
-                    SeoTitle = x.pt.SeoTitle,
-                    Stock = x.p.Stock,
-                    ViewCount = x.p.ViewCount
-                }).ToListAsync();
-
-            return data;
-        }
-
-        public async Task<PageResult<ProductViewModel>> GetAllByCatelogyId(GetPublicProductPagingRequest request)
-        {
-            var query = _context.Products
-                .Join(_context.ProductTranslations, p => p.Id, pt => pt.ProductId, (p, pt) => new { p, pt })
-                .Join(_context.ProductInCategories, ppt => ppt.p.Id, pic => pic.ProductId, (ppt, pic) => new { ppt, pic })
-                .Join(_context.Categories, pptpic => pptpic.pic.CategoryId, c => c.Id, (pptpic, c) => new { pptpic, c })
-                .Where(x => x.pptpic.ppt.pt.LanguageId == request.LanguageId)
+                .Where(x => x.pptpic.ppt.pt.LanguageId == languageId)
                 .Select(x => new { x.pptpic.ppt.p, x.pptpic.ppt.pt, x.pptpic.pic });
 
             if (request.CategoryId.HasValue == true && request.CategoryId.Value > 0)
