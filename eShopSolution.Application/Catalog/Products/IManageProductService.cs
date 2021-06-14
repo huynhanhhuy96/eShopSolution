@@ -3,8 +3,8 @@
     using eShopSolution.ViewModels.Catalog.ProductImages;
     using eShopSolution.ViewModels.Catalog.Products;
     using eShopSolution.ViewModels.Common;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
 
     public interface IManageProductService
     {

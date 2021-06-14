@@ -1,6 +1,6 @@
 ﻿namespace eShopSolution.ViewModels.Catalog.ProductImages
 {
-    using System;
+    using global::System;
 
     public class ProductImageViewModel
     {

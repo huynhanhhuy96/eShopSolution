@@ -1,6 +1,6 @@
 ﻿namespace eShopSolution.ViewModels.Common
 {
-    using System.Collections.Generic;
+    using global::System.Collections.Generic;
 
     public class PageResult<T>
     {

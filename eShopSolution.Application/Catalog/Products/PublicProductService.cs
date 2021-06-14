@@ -4,9 +4,9 @@
     using eShopSolution.ViewModels.Catalog.Products;
     using eShopSolution.ViewModels.Common;
     using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using global::System.Threading.Tasks;
 
     public class PublicProductService : IPublicProductService
     {

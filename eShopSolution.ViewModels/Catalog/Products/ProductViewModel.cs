@@ -1,6 +1,6 @@
 ﻿namespace eShopSolution.ViewModels.Catalog.Products
 {
-    using System;
+    using global::System;
 
     public class ProductViewModel
     {

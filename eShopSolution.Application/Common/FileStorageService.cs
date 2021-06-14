@@ -1,9 +1,8 @@
 ﻿namespace eShopSolution.Application.Common
 {
+    using global::System.IO;
+    using global::System.Threading.Tasks;
     using Microsoft.AspNetCore.Hosting;
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
 
     public class FileStorageService : IStorageService
     {

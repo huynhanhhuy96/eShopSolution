@@ -7,14 +7,14 @@
     using eShopSolution.ViewModels.Catalog.ProductImages;
     using eShopSolution.ViewModels.Catalog.Products;
     using eShopSolution.ViewModels.Common;
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Net.Http.Headers;
+    using global::System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
 
     public class ManageProductService : IManageProductService
     {
