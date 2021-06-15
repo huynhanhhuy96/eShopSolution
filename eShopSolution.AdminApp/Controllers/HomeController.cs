@@ -1,14 +1,12 @@
-﻿using eShopSolution.AdminApp.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace eShopSolution.AdminApp.Controllers
+﻿namespace eShopSolution.AdminApp.Controllers
 {
+    using eShopSolution.AdminApp.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using System.Diagnostics;
+
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
